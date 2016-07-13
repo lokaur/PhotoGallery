@@ -95,16 +95,17 @@ public class PhotoGalleryFragment extends Fragment {
     public void onCreateOptionsMenu(Menu menu, MenuInflater menuInflater) {
         super.onCreateOptionsMenu(menu, menuInflater);
         menuInflater.inflate(R.menu.fragment_photo_gallery, menu);
-        MenuItem searchItem = menu.findItem(R.id.menu_item_search);
-        final SearchView searchView = (SearchView) searchItem.getActionView();
+        final MenuItem searchMenu = menu.findItem(R.id.menu_item_search);
+        final SearchView searchView = (SearchView) searchMenu.getActionView();
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 Log.d(TAG, "QueryTextSubmit: " + s);
+                searchMenu.collapseActionView();
                 QueryPreferences.setStoredQuery(getActivity(), s);
                 updateItems();
-                return true;
+                return false;
             }
 
             @Override
