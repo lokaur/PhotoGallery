@@ -65,18 +65,17 @@ public class FlickrFetchr {
         return new String(getUrlBytes(urlSpec));
     }
 
-    public List<GalleryItem> fetchRecentPhotos(int page) {
-        return downloadGalleryItems(buildUrl(FETCH_RECENTS_METHOD, null, page));
+    public List<GalleryItem> fetchRecentPhotos() {
+        return downloadGalleryItems(buildUrl(FETCH_RECENTS_METHOD, null));
     }
 
-    public List<GalleryItem> searchPhotos(String query, int page) {
-        return downloadGalleryItems(buildUrl(SEARCH_METHOD, query, page));
+    public List<GalleryItem> searchPhotos(String query) {
+        return downloadGalleryItems(buildUrl(SEARCH_METHOD, query));
     }
 
-    private String buildUrl(String method, String query, int page) {
+    private String buildUrl(String method, String query) {
         Uri.Builder uriBuilder = ENDPOINT.buildUpon()
-                .appendQueryParameter("method", method)
-                .appendQueryParameter("page", Integer.toString(page));
+                .appendQueryParameter("method", method);
 
         if (method.equals(SEARCH_METHOD)) {
             uriBuilder.appendQueryParameter("text", query);
