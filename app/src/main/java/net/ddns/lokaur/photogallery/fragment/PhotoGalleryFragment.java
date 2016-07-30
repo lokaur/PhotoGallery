@@ -1,6 +1,5 @@
 package net.ddns.lokaur.photogallery.fragment;
 
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
