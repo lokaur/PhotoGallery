@@ -2,9 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="net.ddns.lokaur.photogallery">
 
+    <permission android:name="net.ddns.lokaur.photogallery.PRIVATE"
+        android:protectionLevel="signature"/>
+
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="net.ddns.lokaur.photogallery.PRIVATE"/>
+    
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -19,6 +24,11 @@
             </intent-filter>
         </activity>
         <service android:name=".service.PollService"/>
+        <receiver android:name=".service.StartupReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

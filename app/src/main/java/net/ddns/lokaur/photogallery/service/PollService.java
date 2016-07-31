@@ -21,9 +21,15 @@ import net.ddns.lokaur.photogallery.network.FlickrFetchr;
 
 import java.util.List;
 
+
 public class PollService extends IntentService {
 
     private static final String TAG = "PollService";
+
+    public static final String ACTION_SHOW_NOTIFICATION =
+            "net.ddns.lokaur.photogallery.service.SHOW_NOTIFICATION";
+
+    public static final String PERM_PRIVATE = "net.ddns.lokaur.photogallery.PRIVATE";
 
     private static final long POLL_INTERVAL = 1000 * 60;
 
@@ -73,6 +79,8 @@ public class PollService extends IntentService {
             NotificationManagerCompat notificationManager =
                     NotificationManagerCompat.from(this);
             notificationManager.notify(0, notification);
+
+            sendBroadcast(new Intent(ACTION_SHOW_NOTIFICATION), PERM_PRIVATE);
         }
 
         QueryPreferences.setLastResultId(this, resultId);
@@ -98,6 +106,8 @@ public class PollService extends IntentService {
             alarmManager.cancel(pi);
             pi.cancel();
         }
+
+        QueryPreferences.setAlarmOn(context, isOn);
     }
 
     public static boolean isServiceAlarmOn(Context context) {
